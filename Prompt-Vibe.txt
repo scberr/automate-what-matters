@@ -1,0 +1,57 @@
+# RMA Central App 
+You need to build an RMA app called RMA Central which will be used by the following user roles, for the specified purposes
+
+## General Guidance
+- Just create one table to store all the information. Other information will be stored outside this app
+- Do not create a User table 
+- Do not create a Troubleshooting Guide table 
+- Do not create a Product table 
+- Do not reference the Brightly Agent
+- Create the navigation menu on the top of the page
+
+
+## Retail Assistants Actions
+- Create a new RMA Request
+  - Set Default Customer Remediation Status to Pending
+  - Set Repair Order Status to Not Required
+  - Use an Autonumber field to create a human readable RMA Code
+  - Capture the customer's contact email address
+- Find an existing RMA that a customer created
+- Update an RMA request after interacting with a customer
+  - Record that they can reproduce the issue the customer reported
+- Change the Customer Remediation Status to either Product Replaced or Repair Required
+  - If Product Replaced
+    - Enter the replacement invoice number
+  - If Repair Required
+    - Print an internal transfer packing slip
+    - Change the Repair Order Status to Shipped to Warehouse
+
+
+## Warehouse Technician Actions
+- Find an existing RMA
+- Receive an Internal Transfer
+  - Change Repair Order Status to Received at Warehouse
+- Assess the Item
+  - If it can be repaired
+    - Add a description of the assessment
+    - Change Repair Order Status to Pending Repair
+  - If not
+    - Add a description of the assessment
+    - Mark the item was recycled
+    - Change Repair Order Status to Replacement Shipped
+    - Add the replacement product code
+    - Enter the tracking ID of the replacement product
+
+## Team Manager Actions
+- View a dashboard that includes the following
+  - an overview of the status of items that are at the warehouse
+  - an overview of items and their customer remediation status
+  - Recent requests
+  - Quick links to Search, Create RMA and the RetailAssist agent
+- Assign an item to another user using the built-in Dataverse Owner field
+
+
+# RetailAssist Agent
+You need to create another agent for internal staff to communicate with. It will be called Retail Assist. It will have the following functions:
+- Find an RMA for a given email address
+- Show the status of the RMA
